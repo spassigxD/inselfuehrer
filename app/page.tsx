@@ -31,10 +31,10 @@ export default function HomePage() {
     <main>
       <header className="max-w-2xl">
         <p className="text-sm font-medium tracking-wide text-primary uppercase">Animal Crossing: New Horizons</p>
-        <h1 className="mt-2 font-heading text-4xl tracking-tight sm:text-5xl">
+        <h1 className="mt-2 font-heading text-3xl tracking-tight sm:text-5xl">
           Was ist gerade zu fangen?
         </h1>
-        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+        <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:mt-4 sm:text-lg">
           Drei Fundlisten für Fische, Insekten und Meerestiere. Stell Monat, Uhrzeit, Fundort
           und Preis zusammen. Die Nordhalbkugel ist voreingestellt, die Südhalbkugel lässt sich umschalten.
         </p>
@@ -47,19 +47,21 @@ export default function HomePage() {
           const count = crittersByCategory(category).length
           return (
             <li key={category}>
-              <Card className="h-full">
-                <CardHeader>
-                  <Icon className="size-6 text-primary" aria-hidden="true" />
-                  <CardTitle className="font-heading text-2xl">{meta.title}</CardTitle>
-                  <CardDescription>{meta.lead}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="mb-4 text-sm text-muted-foreground">{count} Einträge</p>
-                  <Link href={meta.href} className={cn(buttonVariants({ variant: "default" }), "w-full")}>
-                    {meta.title} ansehen
-                  </Link>
-                </CardContent>
-              </Card>
+              <Link href={meta.href} className="block h-full rounded-xl focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+                <Card className="h-full transition-colors active:bg-muted">
+                  <CardHeader>
+                    <Icon className="size-6 text-primary" aria-hidden="true" />
+                    <CardTitle className="font-heading text-2xl">{meta.title}</CardTitle>
+                    <CardDescription>{meta.lead}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="mb-4 text-sm text-muted-foreground">{count} Einträge</p>
+                    <span className={cn(buttonVariants({ variant: "default" }), "h-12 w-full text-base")}>
+                      {meta.title} ansehen
+                    </span>
+                  </CardContent>
+                </Card>
+              </Link>
             </li>
           )
         })}
@@ -70,17 +72,19 @@ export default function HomePage() {
         <ul className="mt-4 grid gap-4 md:grid-cols-2">
           {examples.map((example) => (
             <li key={example.href}>
-              <Card className="h-full">
-                <CardHeader>
-                  <CardTitle className="font-heading text-xl">{example.title}</CardTitle>
-                  <CardDescription>{example.text}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Link href={example.href} className={cn(buttonVariants({ variant: "secondary" }))}>
-                    Suche öffnen
-                  </Link>
-                </CardContent>
-              </Card>
+              <Link href={example.href} className="block h-full rounded-xl focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+                <Card className="h-full transition-colors active:bg-muted">
+                  <CardHeader>
+                    <CardTitle className="font-heading text-xl">{example.title}</CardTitle>
+                    <CardDescription>{example.text}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <span className={cn(buttonVariants({ variant: "secondary" }), "h-12 w-full text-base")}>
+                      Suche öffnen
+                    </span>
+                  </CardContent>
+                </Card>
+              </Link>
             </li>
           ))}
         </ul>

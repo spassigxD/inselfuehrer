@@ -27,67 +27,54 @@ export function CritterCard({
   const showImage = Boolean(critter.image) && !imageFailed
 
   return (
-    <Card className="h-full">
-      <CardContent className="flex h-full flex-col gap-4">
-        <div className="flex items-start gap-3">
-          <div className="grid size-20 shrink-0 place-items-center rounded-2xl bg-secondary">
-            {showImage ? (
-              <Image
-                src={critter.image ?? ""}
+    <Card size="sm" className="h-full sm:data-[size=sm]:[--card-spacing:--spacing(4)]">
+      <CardContent className="flex h-full gap-3 sm:flex-col sm:gap-4">
+        <div className="grid size-16 shrink-0 place-items-center rounded-2xl bg-secondary sm:size-20">
+          {showImage ? (
+            <Image
+              src={critter.image ?? ""}
                 alt={critter.name}
-                width={72}
-                height={72}
-                className="size-16 object-contain"
-                loading="eager"
-                onError={() => setImageFailed(true)}
-              />
-            ) : (
-              <Icon className="size-8 text-primary" aria-hidden="true" />
-            )}
-          </div>
-          <div className="min-w-0">
-            <h2 className="font-heading text-xl leading-tight break-words">{critter.name}</h2>
-            <p className="mt-1 text-base font-semibold text-[oklch(0.46_0.1_65)]">
+              width={72}
+              height={72}
+              className="size-14 object-contain sm:size-16"
+              loading="eager"
+              onError={() => setImageFailed(true)}
+            />
+          ) : (
+            <Icon className="size-7 text-primary sm:size-8" aria-hidden="true" />
+          )}
+        </div>
+        <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+          <div>
+            <h2 className="font-heading text-lg leading-tight break-words sm:text-xl">{critter.name}</h2>
+            <p className="mt-0.5 text-base font-semibold text-[oklch(0.46_0.1_65)]">
               {formatSternis(critter.price)}
             </p>
             {critter.priceNote ? (
               <p className="mt-1 text-xs leading-snug text-muted-foreground">{critter.priceNote}</p>
             ) : null}
           </div>
+          <p>
+            <span className="sr-only">Fundort: </span>
+            <Badge variant="secondary" className="h-6 px-2">
+              {critter.location}
+            </Badge>
+          </p>
+          {critter.locationNote ? (
+            <p className="text-xs leading-snug text-muted-foreground">{critter.locationNote}</p>
+          ) : null}
+          <ul className="grid gap-0.5 text-sm" aria-label="Monate und Uhrzeit">
+            {lines.map((line) => (
+              <li key={`${line.months}-${line.hours}`} className="leading-snug">
+                <span className="font-medium">{line.months}</span>
+                <span className="text-muted-foreground"> · {line.hours}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-auto hidden text-xs text-muted-foreground sm:block">
+            {hemisphere === "sued" ? "Südhalbkugel" : "Nordhalbkugel"}
+          </p>
         </div>
-
-        <dl className="grid gap-3 text-sm">
-          <div>
-            <dt className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-              Fundort
-            </dt>
-            <dd className="mt-1">
-              <Badge variant="secondary">{critter.location}</Badge>
-              {critter.locationNote ? (
-                <span className="mt-1 block text-muted-foreground">{critter.locationNote}</span>
-              ) : null}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-              Monate und Uhrzeit
-            </dt>
-            <dd className="mt-1">
-              <ul className="grid gap-1">
-                {lines.map((line) => (
-                  <li key={`${line.months}-${line.hours}`}>
-                    <span className="font-medium">{line.months}</span>
-                    <span className="text-muted-foreground"> · {line.hours}</span>
-                  </li>
-                ))}
-              </ul>
-            </dd>
-          </div>
-        </dl>
-
-        <p className="mt-auto text-xs text-muted-foreground">
-          {hemisphere === "sued" ? "Südhalbkugel" : "Nordhalbkugel"}
-        </p>
       </CardContent>
     </Card>
   )
