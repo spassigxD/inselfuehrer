@@ -6,6 +6,7 @@ import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { scheduleLines, formatSternis } from "@/lib/format"
+import { publicPath } from "@/lib/public-path"
 import type { Critter, Hemisphere } from "@/lib/types"
 
 const icons = {
@@ -32,8 +33,8 @@ export function CritterCard({
         <div className="grid size-16 shrink-0 place-items-center rounded-2xl bg-secondary sm:size-20">
           {showImage ? (
             <Image
-              src={critter.image ?? ""}
-                alt={critter.name}
+              src={publicPath(critter.image)}
+              alt={critter.name}
               width={72}
               height={72}
               className="size-14 object-contain sm:size-16"
